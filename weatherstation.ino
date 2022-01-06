@@ -28,11 +28,7 @@ void setup(){
   Serial.begin(115200);
   Serial.println(F(__DATE__ __TIME__));
   Serial.println(F("starte Filesystem"));
-  if (is_initial_program_load()) {
-    Serial.println(F("new Version"));
-  } else {
-    Serial.println(F("old Version"));
-  }
+  
   SPIFFS.begin();
   Serial.println(F("generate new Config"));
   Serial.setDebugOutput(true);
