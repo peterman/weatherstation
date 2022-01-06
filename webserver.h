@@ -1,6 +1,6 @@
 void setupWeb() {
-  webServer.serveStatic("/", SPIFFS, "/").setDefaultFile("index.htm").setCacheControl("max-age=600");
-  
+  webServer.serveStatic("/", SPIFFS, "/").setDefaultFile("index.htm").setCacheControl("max-age=600").setFilter(ON_STA_FILTER);
+  webServer.serveStatic("/", SPIFFS, "/ap/").setFilter(ON_AP_FILTER);
   webServer.onNotFound([](AsyncWebServerRequest * request) { 
         request->send(404, "text/plain", "Not found");
   });

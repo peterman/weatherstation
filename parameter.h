@@ -22,3 +22,5 @@ uint8_t brightness = 128;
 CRGB leds[NUM_LEDS];
 //has to be uint8_t so it starts at 0 after it reached 256
 uint8_t hue = 0;
+
+#define WIFI_CONNECT_TIMEOUT 10

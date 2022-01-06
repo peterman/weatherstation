@@ -8,7 +8,7 @@
 
 #include <ESPAsyncWebServer.h>
 #include <SPIFFSEditor.h>
-#include <EEPROM.h>
+#include <ArduinoJson.h>
 
 // SKETCH BEGIN
 AsyncWebServer webServer(80);
@@ -21,6 +21,7 @@ AsyncEventSource events("/events");
 #include "secrets.h"
 #include "fastled.h"
 #include "otahandle.h"
+#include "wifi.h"
 #include "webserver.h"
 
 void setup(){
@@ -33,20 +34,18 @@ void setup(){
   Serial.println(F("generate new Config"));
   Serial.setDebugOutput(true);
 
+  // starte FastLED System ----------------------------------
+  
   setupFastLED();
   initTest();
   
-  
-  WiFi.mode(WIFI_AP_STA);
-  WiFi.softAP(hostName);
-  WiFi.begin(ssid, password);
-  if (WiFi.waitForConnectResult() != WL_CONNECTED) {
-    Serial.printf("STA: Failed!\n");
-    WiFi.disconnect(false);
-    delay(1000);
-    WiFi.begin(ssid, password);
-  }
+  // --------------------------------------------------------
 
+  // starte WiFi --------------------------------------------
+  setupwifi();
+  // Wifi ende ----------------------------------------------
+
+  
   handleOTA();
 
   MDNS.addService("http","tcp",80);
