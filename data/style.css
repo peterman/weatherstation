@@ -1,0 +1,38 @@
+/* Add your styles here */
+.content {
+  text-align: center;
+  padding-top: 70px;
+}
+.title {
+  padding: 5px;
+}
+table {
+    width: 50%  !important;;
+}
+th {
+    background: #f1f1f1;
+    font-weight: bold;
+    padding: 6px;
+}
+td {
+    background: #f9f9f9;
+    padding: 6px;
+}
+
+body { padding-bottom: 70px; }
+table {
+    width: 50%;
+}
+
+
+html {
+  font-family: Helvetica;
+  display: inline-block;
+  margin: 0px auto;
+  text-align: center;
+}
+h1{
+  color: #0F3376;
+  padding: 2vh;
+}
+
