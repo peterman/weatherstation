@@ -35,10 +35,8 @@ void setup(){
   Serial.setDebugOutput(true);
 
   // starte FastLED System ----------------------------------
-  
-  setupFastLED();
-  initTest();
-  
+  // setupFastLED();
+  // initTest();
   // --------------------------------------------------------
 
   // starte WiFi --------------------------------------------
@@ -48,7 +46,7 @@ void setup(){
   
   handleOTA();
 
-  MDNS.addService("http","tcp",80);
+  //MDNS.addService("http","tcp",80);
 
   setupWeb();
 // --------------------------------

@@ -1,7 +1,9 @@
 
 const char * hostName = "esp-async";
+const char * ap_dns_name = "test";
 const char* http_username = "admin";
 const char* http_password = "admin";
+
 
 
 
