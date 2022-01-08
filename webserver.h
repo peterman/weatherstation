@@ -1,6 +1,6 @@
 void setupWeb() {
   webServer.serveStatic("/", SPIFFS, "/").setDefaultFile("index.htm").setCacheControl("max-age=600").setFilter(ON_STA_FILTER);
-  webServer.serveStatic("/", SPIFFS, "/ap/").setFilter(ON_AP_FILTER);
+  //webServer.serveStatic("/", SPIFFS, "/ap/").setFilter(ON_AP_FILTER);
   webServer.onNotFound([](AsyncWebServerRequest * request) { 
         request->send(404, "text/plain", "Not found");
   });
@@ -10,7 +10,7 @@ void setupWeb() {
   });
   
   Serial.println ( "Starting Editorhandler" );
-  webServer.addHandler(new SPIFFSEditor(SPIFFS, editor_username, editor_password));
+  webServer.addHandler(new SPIFFSEditor(SPIFFS, configs.edit_user, configs.edit_pass));
   
   Serial.println ( "Starting HTTP server" );
   webServer.begin();

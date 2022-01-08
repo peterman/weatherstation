@@ -15,10 +15,10 @@ AsyncWebServer webServer(80);
 AsyncWebSocket ws("/ws");
 AsyncEventSource events("/events");
 
+#include "parameter.h"
 #include "functions.h"
 #include "websockets.h"
-#include "parameter.h"
-#include "secrets.h"
+
 #include "fastled.h"
 #include "otahandle.h"
 #include "wifi.h"
@@ -41,6 +41,8 @@ void setup(){
 
   // starte WiFi --------------------------------------------
   setupwifi();
+  save_wifiscan();
+  printFile("/wifinets.json");
   // Wifi ende ----------------------------------------------
 
   
@@ -48,7 +50,7 @@ void setup(){
 
   //MDNS.addService("http","tcp",80);
 
-  setupWeb();
+  
 // --------------------------------
   ws.onEvent(onWsEvent);
   webServer.addHandler(&ws);
@@ -58,6 +60,7 @@ void setup(){
   });
   webServer.addHandler(&events);
 // ------------------------------------------
+  setupWeb();
 }
 
 void loop(){

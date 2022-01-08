@@ -1,11 +1,28 @@
+const char *settings="/settings.json";
+const char *wifinets="/wifinets.json";
 
-const char * hostName = "esp-async";
-const char * ap_dns_name = "test";
-const char* http_username = "admin";
-const char* http_password = "admin";
+struct Config{
+  char hostname[10] = "esp-async";
+  char ap_dns_name[10] = "test";
+  //
+  char http_user[10] = "admin";
+  char http_pass[10] = "admin";
+  
+  char sta_ssid[20] = "Sensor";
+  char sta_pass[20] = "sensorgarten";
+  
+  char ap_ssid[20] = "testerwlan";
+  char ap_pass[20] = "Sanifar123=";
+  // Editor Access
+  char edit_user[10] = "admin";
+  char edit_pass[10] = "admin";
+};
 
-
-
+struct Cronjob{
+  int cjt1=10;  long tmp1=0; //  10sek.
+  int cjt2=30;  long tmp2=0; //  30sek.
+  int cjt3=300; long tmp3=0; // 300sek.
+};
 
 //fastled
 
@@ -26,3 +43,6 @@ CRGB leds[NUM_LEDS];
 uint8_t hue = 0;
 
 #define WIFI_CONNECT_TIMEOUT 10
+
+Config configs;
+Cronjob cronjobs;

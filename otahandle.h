@@ -14,6 +14,6 @@ void handleOTA() {
     else if(error == OTA_RECEIVE_ERROR) events.send("Recieve Failed", "ota");
     else if(error == OTA_END_ERROR) events.send("End Failed", "ota");
   });
-  ArduinoOTA.setHostname(hostName);
+  ArduinoOTA.setHostname(configs.hostname);
   ArduinoOTA.begin();
 }
