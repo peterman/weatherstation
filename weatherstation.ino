@@ -17,6 +17,7 @@ AsyncEventSource events("/events");
 
 #include "parameter.h"
 #include "functions.h"
+#include "cron.h"
 #include "websockets.h"
 
 #include "fastled.h"
@@ -35,8 +36,8 @@ void setup(){
   Serial.setDebugOutput(true);
 
   // starte FastLED System ----------------------------------
-  // setupFastLED();
-  // initTest();
+  setupFastLED();
+  initTest();
   // --------------------------------------------------------
 
   // starte WiFi --------------------------------------------
@@ -66,4 +67,5 @@ void setup(){
 void loop(){
   ArduinoOTA.handle();
   ws.cleanupClients();
+  do_cronjobs();
 }

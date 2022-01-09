@@ -10,7 +10,7 @@ void setupWeb() {
   });
   
   Serial.println ( "Starting Editorhandler" );
-  webServer.addHandler(new SPIFFSEditor(SPIFFS, configs.edit_user, configs.edit_pass));
+  webServer.addHandler(new SPIFFSEditor(SPIFFS, conf.edit_user, conf.edit_pass));
   
   Serial.println ( "Starting HTTP server" );
   webServer.begin();

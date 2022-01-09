@@ -1,3 +1,13 @@
+// dBm zu % --------------------------------------------------------------------------------------------
+int dBmtoPercent(int dBm){
+  int quality;
+  const int RSSI_MIN = -100;
+  const int RSSI_MAX = -50;
+  if(dBm <= RSSI_MIN) {quality=0;}
+  else if (dBm >= RSSI_MAX){quality=100;}
+  else {quality = 2*(dBm+100);}
+return quality;
+}
 // Verschlüsslung als Klartext ---------------------------------------------------------------------------
 String enc_type(int type){
   switch(type){
@@ -23,12 +33,15 @@ void save_wifiscan(){
   String json="[\n";
   if (n){
     for (int i=0; i<n; ++i){
-      if(i) json+=",\n";
+      if (WiFi.SSID(i)==""){continue;}; 
       json+="{";
-      json+="\"rssi\":\""+String(WiFi.RSSI(i))+"\"";
-      json+=",\"ssid\":\""+String(WiFi.SSID(i))+"\"";
-      json+=",\"secure\":\""+String(enc_type(WiFi.encryptionType(i)))+"\"";
-      json+="}";   
+      json+="\"ssid\":\""+WiFi.SSID(i)+"\"";
+      json+=",\"rssi\":\""+String(WiFi.RSSI(i))+"\"";
+      json+=",\"quality\":\""+String(dBmtoPercent(WiFi.RSSI(i)))+"\"";
+      json+=",\"bssid\":\""+WiFi.BSSIDstr(i)+"\"";
+      json+=",\"secure\":\""+enc_type(WiFi.encryptionType(i))+"\"";
+      json+="}"; 
+      if(i<n-1) json+=",\n";  
     }
   }
   json+="\n]";
@@ -42,23 +55,23 @@ void save_wifiscan(){
 void setupwifi(){
   
   WiFi.mode(WIFI_STA); 
-  WiFi.begin(configs.sta_ssid, configs.sta_pass);
-  Serial.println("\nStarte Verbindung zu SSID: \"" + String(configs.sta_ssid) +"\"");
+  WiFi.begin(conf.sta_ssid, conf.sta_pass);
+  Serial.println("\nStarte Verbindung zu SSID: \"" + String(conf.sta_ssid) +"\"");
   int timeout_counter = 0;
   while(WiFi.status() != WL_CONNECTED){
         Serial.print(".");
         delay(200);
         timeout_counter++;
         if(timeout_counter >= WIFI_CONNECT_TIMEOUT*5){
-          Serial.println("\nTimeout. Starte AP mit SSID: \"" + String(configs.ap_ssid) +"\"");
+          Serial.println("\nTimeout. Starte AP mit SSID: \"" + String(conf.ap_ssid) +"\"");
           WiFi.disconnect();
-          WiFi.softAP(configs.ap_ssid,configs.ap_pass);
+          WiFi.softAP(conf.ap_ssid,conf.ap_pass);
           Serial.println("\nAP läuft. ");
           Serial.print("Lokale ESP32-IP: ");
           Serial.println(WiFi.softAPIP());
-          if (MDNS.begin(configs.ap_dns_name)) {
+          if (MDNS.begin(conf.ap_dns_name)) {
             Serial.println("DNS gestartet, erreichbar unter: ");
-            Serial.println("http://" + String(configs.ap_dns_name) + ".local/");
+            Serial.println("http://" + String(conf.ap_dns_name) + ".local/");
           }
           return;
         }

@@ -1,7 +1,7 @@
 const char *settings="/settings.json";
 const char *wifinets="/wifinets.json";
 
-struct Config{
+struct Settings{
   char hostname[10] = "esp-async";
   char ap_dns_name[10] = "test";
   //
@@ -18,11 +18,7 @@ struct Config{
   char edit_pass[10] = "admin";
 };
 
-struct Cronjob{
-  int cjt1=10;  long tmp1=0; //  10sek.
-  int cjt2=30;  long tmp2=0; //  30sek.
-  int cjt3=300; long tmp3=0; // 300sek.
-};
+Settings conf;
 
 //fastled
 
@@ -43,6 +39,3 @@ CRGB leds[NUM_LEDS];
 uint8_t hue = 0;
 
 #define WIFI_CONNECT_TIMEOUT 10
-
-Config configs;
-Cronjob cronjobs;
