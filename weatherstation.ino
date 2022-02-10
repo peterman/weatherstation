@@ -1,3 +1,7 @@
+#if ( !defined(ESP32) || ( ARDUINO_ESP32S2_DEV || ARDUINO_FEATHERS2 || ARDUINO_PROS2 || ARDUINO_MICROS2 ) )
+  #error This code is intended to run only on the ESP32 (no ESP32-S2 support) platform! Please check your Tools->Board setting.
+#endif
+
 #include <ArduinoOTA.h>
 #include <FastLED.h>
 #include <FS.h>
